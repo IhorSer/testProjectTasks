@@ -14,7 +14,7 @@ export const registerUser = (email, password) => {
 }
 
 export const initAuth = () => {
-    return dispatch => api.initAuth(user => {
+    return dispatch => initUser(user => {
         return user ? dispatch({
             type: SET_AUTH,
             payload: {

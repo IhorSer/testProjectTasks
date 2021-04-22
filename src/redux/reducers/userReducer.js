@@ -1,7 +1,7 @@
-import {SET_AUTH, SET_UNAUTH, REGISTER_USER} from '../actionTypes'
+import { SET_AUTH, SET_UNAUTH, REGISTER_USER } from '../actionTypes'
+import { initialState } from '../initialState';
 
-
-export default function(state = initialState, action) {
+export const userReducer = (state = initialState, action) => {
     switch (action.type) {
       case SET_AUTH:
         return {

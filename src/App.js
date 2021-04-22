@@ -6,48 +6,40 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { auth, db } from './services/firebase';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Main from './pages/Main';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
+import { Main } from './pages/Main';
 import { store } from './redux/store';
+import { initAuth } from './redux/actions/userActions';
 import './App.css';
 
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const { user } = store.getState();
+  console.log(user);
 
   useEffect(()=>{
-      db.collection('tasks')
-      .get()
-      .then(querySnapshot => {
-          const tasks = [];
-          querySnapshot.forEach(doc => {
-              tasks.push({
-                id: doc.id, 
-                ...doc.data()});
-          });
-          setTasks(tasks);
-          console.log(tasks);
-      })
-      .catch(error => {
-          console.log(error);
-      });
+    initAuth();
   }, []);
-
-  return (
-    <Provider store={store}>
-      <Router>
+  
+  if (!user) {
+    return (
+      <Route component={Login}/>
+    )
+  }
+  else {
+    return (
+      <Provider store={store}>
           <div className="App">
               <Switch>
-                <Route exact path='/login' component={Login}/>
-                <Route exact path='/register' component={Register}/>
-                <Route exact path='/dashboard' component={Main}/>
+                  <Route exact path='/login' component={Login}/>
+                  <Route exact path='/register' component={Register}/>
+                  <Route exact path='/dashboard' component={Main}/>
               </Switch>
           </div>
-        </Router>
-      </Provider>
-  );
+        </Provider>
+    );
+  }
 }
 
 export default App;

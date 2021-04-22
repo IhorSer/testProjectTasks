@@ -5,11 +5,12 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { auth, db } from './services/firebase';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Main from './pages/Main';
-import logo from './logo.svg';
+import { store } from './redux/store';
 import './App.css';
 
 
@@ -35,15 +36,17 @@ function App() {
   }, []);
 
   return (
-    <Router>
-        <div className="App">
-            <Switch>
-               <Route exact path='/login' component={Login}/>
-               <Route exact path='/register' component={Register}/>
-               <Route exact path='/dashboard' component={Main}/>
-            </Switch>
-        </div>
-      </Router>
+    <Provider store={store}>
+      <Router>
+          <div className="App">
+              <Switch>
+                <Route exact path='/login' component={Login}/>
+                <Route exact path='/register' component={Register}/>
+                <Route exact path='/dashboard' component={Main}/>
+              </Switch>
+          </div>
+        </Router>
+      </Provider>
   );
 }
 

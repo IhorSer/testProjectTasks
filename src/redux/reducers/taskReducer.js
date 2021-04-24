@@ -5,8 +5,11 @@ import {
     UPDATE_TASK
   } from '../actionTypes';
 
-import { initialState } from '../initialState';
-
+const initialState = {
+    tasks: [],
+    isLoading: false,
+    error: null
+}
   
 export const taskReducer = (state = initialState, action) => {
     //const { id } = action.payload;

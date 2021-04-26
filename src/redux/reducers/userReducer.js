@@ -11,22 +11,25 @@ import {
 const initialState = {
   user: null,
   isLoading: false,
+  isAuth: false,
   error: null
 }
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
       case SET_UNAUTH:
-        console.log('unauth');
         return {
           ...state,
-          user: null
+          user: null,
+          isLoading: false,
+          isAuth: false,
+          error: null
         };
       case REGISTER_USER_RESPONSE:
-        console.log('response');
         return {
           ...state,
           isLoading: false,
+          isAuth: true,
           error: false,
           user: action.payload
         };
@@ -35,36 +38,37 @@ export const userReducer = (state = initialState, action) => {
         return {
           ...state,
           isLoading: true,
+          isAuth: false,
           error: false,
-          user: null
         };
         case REGISTER_USER_ERROR:
         return {
           ...state,
           isLoading: false,
+          isAuth: true,
           error: action.payload,
           user: null
         };
         case LOGIN_USER_RESPONSE:
-        console.log('response');
         return {
           ...state,
           isLoading: false,
+          isAuth: true,
           error: false,
           user: action.payload
         };
         case LOGIN_USER_REQUEST:
-          console.log('request');
         return {
           ...state,
           isLoading: true,
+          isAuth: false,
           error: false,
-          user: null
         };
         case LOGIN_USER_ERROR:
         return {
           ...state,
           isLoading: false,
+          isAuth: true,
           error: action.payload,
           user: null
         };

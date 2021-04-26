@@ -33,8 +33,11 @@ export const logInUser = async (userEmail, userPassword, dispatch, history) => {
     }
 }
 
-export const signOutUser = () => {
-    return logout().then(() => ({}));
+export const signOutUser = async (dispatch) => {
+    dispatch({
+        type: SET_UNAUTH
+    });
+    return await logout();
 }
 
 export const registerUser = async (userEmail, userPassword, dispatch, history) => {
@@ -65,22 +68,25 @@ export const registerUser = async (userEmail, userPassword, dispatch, history) =
     }
 }
 
-export const initAuth = async (dispatch) => {
+export const initAuth = async (dispatch, history) => {
     await initUser(data => {
         console.log(data);
-        const {email, displayName} = data;
-        if (email) {
-            dispatch({
-                type: LOGIN_USER_RESPONSE,
-                payload: {
-                    name: displayName,
-                    email
-                }
-            })
-        } else {
-            dispatch({
-                type: SET_UNAUTH
-            })
+        if (data) {
+            const {email, displayName} = data;
+            if (email) {
+                dispatch({
+                    type: LOGIN_USER_RESPONSE,
+                    payload: {
+                        name: displayName,
+                        email
+                    }
+                })
+            }
+        } 
+        else {
+            history.location.pathname === '/register' ?
+                history.push('/register') :
+                history.push('/login')
         }
     });
 }

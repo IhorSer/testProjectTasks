@@ -12,8 +12,7 @@ export const registerValidator = Yup.object({
             .required('Confirm password')
     })
 
-export const taskCreateValidator = (values) => {
-    return Yup.object({
-
-    });
-}
+export const taskCreateValidator = Yup.object ({
+        title: Yup.string().required('Provide title for Todo'),
+        description: Yup.string().required('Expand description for Todo'),
+})

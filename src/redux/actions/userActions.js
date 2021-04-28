@@ -15,15 +15,16 @@ export const logInUser = async (userEmail, userPassword, dispatch, history) => {
     });
     try {
         const {user} = await login(userEmail, userPassword);
-        const {displayName, email} = user;
+        const {displayName, email, uid} = user;
         dispatch({
             type: LOGIN_USER_RESPONSE,
             payload: {
+                id: uid,
                 name: displayName,
                 email
             }
         })
-        history.push('/main');
+        history.push('/');
     } catch(error) {
         const {message} = error;
         dispatch({
@@ -57,9 +58,8 @@ export const registerUser = async (userEmail, userPassword, dispatch, history) =
                 email
             }
         })
-        history.push('/main');
+        history.push('/');
     } catch(error) {
-        console.log('Error', error);
         const {message} = error;
         dispatch({
             type: REGISTER_USER_ERROR,
@@ -70,7 +70,6 @@ export const registerUser = async (userEmail, userPassword, dispatch, history) =
 
 export const initAuth = async (dispatch, history) => {
     await initUser(data => {
-        console.log(data);
         if (data) {
             const {email, displayName} = data;
             if (email) {

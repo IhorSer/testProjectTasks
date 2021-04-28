@@ -1,16 +1,14 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CustomTextField } from '../CustomTextField/CustomTextField'
+import { CustomAuthButton } from '../CustomAuthButton/CustomAuthButton';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 
 export const RegisterForm = (props) => {
     const {
         values: { email, password, confirmPassword },
-        errors,
-        touched,
         handleSubmit,
         handleChange,
         isValid,
@@ -32,58 +30,34 @@ export const RegisterForm = (props) => {
                 align='center'>
 				Register
 			</Typography>
-			<TextField
-				variant='outlined'
-				margin='normal'
-				required
-				fullWidth
-				id='email'
-				label='Email Address'
-				name='email'
-				autoComplete='email'
+            <CustomTextField 
+                name='email'
+                label='Email Address'
+                value={email}
+                autoComplete='email'
 				autoFocus
-				value={email}
-				helperText={errors.email}
-                error={Boolean(errors.email)}
-				onChange={change}/>
-			<TextField
-			    variant='outlined'
-				margin='normal'
-				required
-				fullWidth
-				name='password'
-				label='Password'
-				type='password'
-				id='password'
+                onChange={change}
+                {...props}/>
+            <CustomTextField 
+                name='password'
+                label='Password'
+                value={password}
+                type='password'
 				autoComplete='current-password'
-				value={password}
-				helperText={errors.password}
-                error={Boolean(errors.password)}
-				onChange={change}/>
-            <TextField
-				variant='outlined'
-				margin='normal'
-				required
-				fullWidth
-				name='confirmPassword'
-				label='Confirm Password'
-				type='password'
-				id='confirmPassword'
-				value={confirmPassword}
-				helperText={errors.confirmPassword}
-                error={Boolean(errors.confirmPassword)}
-				onChange={change}/>
-			<Button
-				type='submit'
-				fullWidth
-			    variant='contained'
-				color='primary'
-				className='submit_btn'
-                disabled={!isValid}
-				type='submit'>
-                Sign Up
-                {loading && <CircularProgress size={30} className='progress' />}
-			</Button>
+                onChange={change}
+                {...props}/>
+            <CustomTextField 
+                name='confirmPassword'
+                label='Confirm Password'
+                value={confirmPassword}
+                type='password'
+                onChange={change}
+                {...props}/>
+			<CustomAuthButton
+                label='Sign Up'
+                type='submit'
+				loading={loading}
+                isValid={isValid}/>
 			<Grid container>
 				<Grid item>
 					<Link href='login' variant='body2'>
@@ -91,11 +65,7 @@ export const RegisterForm = (props) => {
 					</Link>
 				</Grid>
 			</Grid>
-			{registerError && (
-				<Typography variant='body2' className='error_msg'>
-					{registerError}
-				</Typography>
-			)}
+            <ErrorMessage error={registerError}/>
 		</form>
     )
 }

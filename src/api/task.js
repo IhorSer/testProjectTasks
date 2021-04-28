@@ -1,3 +1,5 @@
+import { db } from '../services/firebase';
+
 export const getAllTasks = () => {
     return db.collection('tasks')
         .get()
@@ -38,7 +40,7 @@ export const createTask = (task) => {
 export function updateTask(taskId, task) {
     return db.collection('tasks').doc(taskId).update(task)
     .then(() => ({
-        id: todoId,
+        id: taskId,
         ...task
     }));
 }

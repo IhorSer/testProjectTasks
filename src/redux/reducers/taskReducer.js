@@ -1,5 +1,7 @@
 import {
-    CREATE_TASK,
+    CREATE_TASK_REQUEST,
+    CREATE_TASK_RESPONSE,
+    CREATE_TASK_ERROR,
     DELETE_TASK,
     GET_TASKS,
     UPDATE_TASK
@@ -12,13 +14,25 @@ const initialState = {
 }
   
 export const taskReducer = (state = initialState, action) => {
-    //const { id } = action.payload;
-    const id  = 5;
     switch (action.type) {
-      case CREATE_TASK:
+      case CREATE_TASK_REQUEST:
         return {
           ...state,
-          tasks: [...state.tasks, action.payload]
+          isLoading: true,
+          error: null
+        };
+      case CREATE_TASK_RESPONSE:
+        return {
+          ...state,
+          tasks: [...state.tasks, action.payload],
+          isLoading: false,
+          error: null
+        };
+      case CREATE_TASK_ERROR:
+        return {
+          ...state,
+          error: action.payload,
+          isLoading: false
         };
       case GET_TASKS:
         return {
@@ -27,7 +41,7 @@ export const taskReducer = (state = initialState, action) => {
         };
       case DELETE_TASK:
         const index = state.tasks.findIndex(
-            (task) => task.id === id
+            (task) => task.id === task.id
           );
         return {
           ...state,
@@ -36,7 +50,7 @@ export const taskReducer = (state = initialState, action) => {
       case UPDATE_TASK:
         const updatedTasks = state.tasks.map(
             (task) => {
-                if(task.id === id) {
+                if(task.id === task.id) {
                     return action.payload;
                 }
                 return task;

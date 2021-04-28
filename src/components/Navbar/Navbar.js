@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { signOutUser } from '../../redux/actions/userActions';
 import {
   AppBar,
@@ -82,6 +82,8 @@ export const Navbar = ({user}) => {
         history.push('/login');
     }
 
+
+
     return (
         <AppBar className={classes.appbarDisplay}>
             <Toolbar className={classes.toolbarDisplay}>
@@ -92,10 +94,10 @@ export const Navbar = ({user}) => {
                     <ListItem className={classes.link} button component='a' href='/'>
                         <ListItemText primary='Home' />
                     </ListItem>
-                    <ListItem className={classes.link} button component='a' href='/create_todo'>
+                    <ListItem className={classes.link} button component={Link} to='create_todo'>
                         <ListItemText primary='Create Todo' />
                     </ListItem>
-                    <ListItem className={classes.link} button component='a' href='/todo_list'>
+                    <ListItem className={classes.link} button component={Link} to='todo_list'>
                         <ListItemText primary='Todo List' />
                     </ListItem>
                 </Grid>

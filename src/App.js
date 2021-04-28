@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Login } from './pages/Login/Login';
@@ -20,10 +15,11 @@ function App(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((store) => store.user?.user);
-  console.log('User', user);
 
   useEffect(()=>{
-    initAuth(dispatch, history);
+    if(!user) {
+      initAuth(dispatch, history);
+    }
   }, []);
     
   return (

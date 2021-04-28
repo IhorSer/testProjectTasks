@@ -34,7 +34,6 @@ export const userReducer = (state = initialState, action) => {
           user: action.payload
         };
         case REGISTER_USER_REQUEST:
-          console.log('request');
         return {
           ...state,
           isLoading: true,

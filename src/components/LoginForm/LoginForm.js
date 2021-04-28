@@ -1,16 +1,14 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CustomTextField } from '../CustomTextField/CustomTextField';
+import { CustomAuthButton } from '../CustomAuthButton/CustomAuthButton';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 
 export const LoginForm = (props) => {
     const {
         values: { email, password },
-        errors,
-        touched,
         handleSubmit,
         handleChange,
         isValid,
@@ -32,57 +30,35 @@ export const LoginForm = (props) => {
                 align='center'>
 				Login
 			</Typography>
-			<TextField
-				variant='outlined'
-				margin='normal'
-				required
-				fullWidth
-				id='email'
-				label='Email Address'
-				name='email'
-				autoComplete='email'
+			<CustomTextField 
+                name='email'
+                label='Email Address'
+                value={email}
+                autoComplete='email'
 				autoFocus
-				value={email}
-				helperText={errors.email}
-                error={Boolean(errors.email)}
-				onChange={change}/>
-			<TextField
-			    variant='outlined'
-				margin='normal'
-				required
-				fullWidth
-				name='password'
-				label='Password'
-				type='password'
-				id='password'
+                onChange={change}
+                {...props}/>
+            <CustomTextField 
+                name='password'
+                label='Password'
+                value={password}
+                type='password'
 				autoComplete='current-password'
-				value={password}
-				helperText={errors.password}
-			    error={Boolean(errors.password)}
-				onChange={change}/>
-			<Button
-				type='submit'
-				fullWidth
-			    variant='contained'
-				color='primary'
-				className='submit_btn'
-                disabled={!isValid}
-				type='submit'>
-                Sign In
-                {loading && <CircularProgress size={30} className='progress' />}
-			</Button>
-				<Grid container>
-					<Grid item>
-						<Link href='register' variant='body2'>
-							{'Don\'t have an account? Sign Up'}
-						</Link>
-					</Grid>
+                onChange={change}
+                {...props}/>
+			<CustomAuthButton
+				label='Sign In'
+                type='submit'
+                loading={loading}
+                isValid={isValid}/>
+            <Grid container>
+				<Grid item>
+					<Link href='register' variant='body2'>
+						{'Don\'t have an account? Sign Up'}
+					</Link>
 				</Grid>
-				{loginError && (
-					<Typography variant='body2' className='error_msg'>
-						{loginError}
-					</Typography>
-				)}
+			</Grid>
+            <ErrorMessage error={loginError} />
 		</form>
     )
 }

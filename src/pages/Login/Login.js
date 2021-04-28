@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -7,7 +7,6 @@ import { logInUser } from '../../redux/actions/userActions';
 import { loginValidator } from '../../helpers/validators';
 
 import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Container from '@material-ui/core/Container';
 import { LoginForm } from '../../components/LoginForm/LoginForm';
 

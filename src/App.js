@@ -10,24 +10,21 @@ import { PublicRoute } from './components/publicRoute';
 import { initAuth } from './redux/actions/userActions';
 import './App.css';
 
-
 function App(props) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector((store) => store.user?.user);
+  const user = useSelector(store => store.user?.user);
 
-  useEffect(()=>{
-    if(!user) {
+  useEffect(() => {
       initAuth(dispatch, history);
-    }
-  }, []);
+  }, [dispatch, history]);
     
   return (
           <div className="App">
               <Switch>
                   <PublicRoute exact path='/login' user={user} component={Login}></PublicRoute>
                   <PublicRoute exact path='/register' user={user} component={Register}></PublicRoute>
-                  <PrivateRoute path="/" user={user} component={Main}></PrivateRoute>
+                  <PrivateRoute path='/' user={user} component={Main}></PrivateRoute>
               </Switch>
           </div>
     );

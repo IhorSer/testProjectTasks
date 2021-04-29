@@ -24,7 +24,7 @@ export const logInUser = async (userEmail, userPassword, dispatch, history) => {
                 email
             }
         })
-        history.push('/');
+        history.push('/todo_list');
     } catch(error) {
         const {message} = error;
         dispatch({
@@ -48,12 +48,12 @@ export const registerUser = async (userEmail, userPassword, dispatch, history) =
     
     try {
         const data = await register(userEmail, userPassword);
-        console.log('Data', data);
         const {user} = data;
-        const {displayName, email} = user;
+        const {displayName, email, uid} = user;
         dispatch({
             type: REGISTER_USER_RESPONSE,
             payload: {
+                id: uid,
                 name: displayName,
                 email
             }
@@ -69,13 +69,17 @@ export const registerUser = async (userEmail, userPassword, dispatch, history) =
 }
 
 export const initAuth = async (dispatch, history) => {
+    dispatch({
+        type: LOGIN_USER_REQUEST
+    });
     await initUser(data => {
         if (data) {
-            const {email, displayName} = data;
+            const {email, displayName, uid} = data;
             if (email) {
                 dispatch({
                     type: LOGIN_USER_RESPONSE,
                     payload: {
+                        id: uid,
                         name: displayName,
                         email
                     }

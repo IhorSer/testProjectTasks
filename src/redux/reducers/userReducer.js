@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   user: null,
-  isLoading: false,
+  isLoading: true,
   isAuth: false,
   error: null
 }
@@ -33,14 +33,14 @@ export const userReducer = (state = initialState, action) => {
           error: false,
           user: action.payload
         };
-        case REGISTER_USER_REQUEST:
+      case REGISTER_USER_REQUEST:
         return {
           ...state,
           isLoading: true,
           isAuth: false,
           error: false,
         };
-        case REGISTER_USER_ERROR:
+      case REGISTER_USER_ERROR:
         return {
           ...state,
           isLoading: false,
@@ -48,22 +48,22 @@ export const userReducer = (state = initialState, action) => {
           error: action.payload,
           user: null
         };
-        case LOGIN_USER_RESPONSE:
+      case LOGIN_USER_RESPONSE:
         return {
           ...state,
-          isLoading: false,
           isAuth: true,
           error: false,
-          user: action.payload
+          user: action.payload,
+          isLoading: false,
         };
-        case LOGIN_USER_REQUEST:
+      case LOGIN_USER_REQUEST:
         return {
           ...state,
           isLoading: true,
           isAuth: false,
           error: false,
         };
-        case LOGIN_USER_ERROR:
+      case LOGIN_USER_ERROR:
         return {
           ...state,
           isLoading: false,

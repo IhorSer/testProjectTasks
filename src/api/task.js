@@ -12,6 +12,17 @@ export const getAllTasks = () => {
         });        
 }
 
+export const getReqs = () =>  {
+    return db.collection('reqs')
+    .get()
+    .then(snapshot => {
+        return snapshot.docs.map(doc => ({
+            ...doc.data()
+        }))
+    } 
+    );
+}
+
 export const getUserTasks = (user) => {
     return db.collection('tasks')
         .where('creator', '==', user.id)
@@ -37,15 +48,13 @@ export const createTask = (task) => {
         }));
 }
 
-export function updateTask(taskId, task) {
-    return db.collection('tasks').doc(taskId).update(task)
+export function updateTask(task) {
+    return db.collection('tasks').doc(task.id).update(task)
     .then(() => ({
-        id: taskId,
-        ...task
-    }));
+        id: task.id,
+        ...task}))
 }
 
-export const deleteTask = (taskId) => {
-    return db.collection('tasks').doc(taskId).delete()
-        .then(() => taskId);
+export const deleteTask = (task) => {
+    return db.collection('tasks').doc(task.id).delete();
 }

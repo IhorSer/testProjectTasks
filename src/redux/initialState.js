@@ -1,4 +1,5 @@
 export const initialState = {
     user: null,
-    tasks: []
+    tasks: [],
+    chips: []
 }

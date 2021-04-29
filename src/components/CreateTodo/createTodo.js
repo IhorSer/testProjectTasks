@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -8,8 +8,9 @@ import Container from '@material-ui/core/Container';
 
 import { CreateTodoForm } from '../../components/CreateTodoForm/CreateTodoForm';
 import { taskCreateValidator } from '../../helpers/validators';
-import { create } from '../../redux/actions/taskActions';
-
+import { create, requirements } from '../../redux/actions/taskActions';
+import { clearChips } from '../../redux/actions/uiActions';
+import { styles } from './styles';
 
 export const CreateTodo = ({user}) => {
     const dispatch = useDispatch();
@@ -17,30 +18,42 @@ export const CreateTodo = ({user}) => {
 
     const isLoading = useSelector(state => state.tasks?.isLoading);
     const taskError = useSelector(state => state.tasks?.error)
+    const reqs = useSelector(state => state.tasks?.reqs);
+    const chips = useSelector(state => state.chips?.chips);
+
+    const classes = styles();
 
     const values = {
         title: '',
         description: '',
-        endDate: null
+        endDate: null,
     };
+
+    useEffect(() => {
+        requirements(dispatch);
+    }, [dispatch]);
 
     const handleCreateTodoButtonClick = (data) => {
         const {title, description, endDate} = data;
-        create({title, description, endDate}, user, dispatch);
+        clearChips(dispatch);
+        create({title, description, endDate, chips}, user, dispatch, history);
     }
 
     return (
-        <Container maxWidth='xs'>
+        <Container maxWidth='md'>
             <Grid container
                 alignItems='center'
                 direction='row'
                 justify='center'
-                style={{minHeight: '100vh'}}>
+                style={{minHeight: '100vh'}}
+                className={classes.container}>
                 <Formik
-                    render={props => <CreateTodoForm {...props} loading={isLoading} error={taskError}  />}
                     initialValues={values}
                     validationSchema={taskCreateValidator}
-                    onSubmit={handleCreateTodoButtonClick}/>
+                    onSubmit={handleCreateTodoButtonClick}> 
+                        {props => <CreateTodoForm {...props} loading={isLoading} 
+                            error={taskError} reqs={reqs}  />}
+                    </Formik>
             </Grid>
         </Container>
     )

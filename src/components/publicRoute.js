@@ -7,7 +7,7 @@ export const PublicRoute = ({component: Component, user, ...rest}) => {
           {...rest}
           render={(props) => user == null
             ? <Component {...props} />
-            : <Redirect to={{ pathname: '/main', state: { from: props.location } }} />}
+            : <Redirect to={{ pathname: '/todo_list', state: { from: props.location } }} />}
         />
       )
 }

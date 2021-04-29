@@ -3,14 +3,16 @@ import {
     CREATE_TASK_RESPONSE,
     CREATE_TASK_ERROR,
     DELETE_TASK,
-    GET_TASKS,
-    UPDATE_TASK
+    GET_ALL_TASKS,
+    UPDATE_TASK,
+    GET_REQUIREMENTS
   } from '../actionTypes';
 
 const initialState = {
     tasks: [],
     isLoading: false,
-    error: null
+    error: null,
+    reqs: []
 }
   
 export const taskReducer = (state = initialState, action) => {
@@ -24,7 +26,7 @@ export const taskReducer = (state = initialState, action) => {
       case CREATE_TASK_RESPONSE:
         return {
           ...state,
-          tasks: [...state.tasks, action.payload],
+          tasks: state.tasks? [...state.tasks, action.payload] : [action.payload],
           isLoading: false,
           error: null
         };
@@ -34,14 +36,14 @@ export const taskReducer = (state = initialState, action) => {
           error: action.payload,
           isLoading: false
         };
-      case GET_TASKS:
+      case GET_ALL_TASKS:
         return {
           ...state,
           tasks: action.payload
         };
       case DELETE_TASK:
         const index = state.tasks.findIndex(
-            (task) => task.id === task.id
+            (task) => task.id === action.payload.id
           );
         return {
           ...state,
@@ -49,17 +51,19 @@ export const taskReducer = (state = initialState, action) => {
         };
       case UPDATE_TASK:
         const updatedTasks = state.tasks.map(
-            (task) => {
-                if(task.id === task.id) {
-                    return action.payload;
-                }
-                return task;
+            (task) => { 
+                return action.payload.id === task.id? action.payload : task;
             }
           );
         return {
           ...state,
           tasks: updatedTasks
         };
+      case GET_REQUIREMENTS:
+        return {
+            ...state,
+            reqs: action.payload
+          }
       default:
         return state;
     }

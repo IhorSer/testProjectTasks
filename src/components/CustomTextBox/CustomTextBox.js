@@ -1,6 +1,6 @@
 import TextField from "@material-ui/core/TextField";
 
-export const CustomTextBox = ({ name, label, value, errors, onChange, handleBlur, touched, rows, rowsMax}) => ( 
+export const CustomTextBox = ({ name, label, value, errors, onChange, handleBlur, touched, rows}) => ( 
     <TextField
         variant='outlined'
         margin='normal'

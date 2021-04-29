@@ -13,6 +13,6 @@ export const registerValidator = Yup.object({
     })
 
 export const taskCreateValidator = Yup.object ({
-        title: Yup.string().required('Provide title for Todo'),
-        description: Yup.string().required('Expand description for Todo'),
+        title: Yup.string().min(6).max(30, 'Please, be less specific').required('Provide title for Todo'),
+        description: Yup.string().min(12).max(120, 'Please, be less specific').required('Provide description for Todo')
 })

@@ -38,11 +38,11 @@ export const Login = () => {
 				justify='center'
 				style={{minHeight: '100vh'}}>
 			<Formik
-                render={props => <LoginForm {...props} loading={isLoading} loginError={loginError} />}
                 initialValues={values}
                 validationSchema={loginValidator}
-                onSubmit={handleLoginButtonClick}
-            />
+                onSubmit={handleLoginButtonClick}>
+					{props => <LoginForm {...props} loading={isLoading} loginError={loginError}/>}
+			</Formik>
 			</Grid>
 		</Container>
     );

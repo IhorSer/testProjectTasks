@@ -16,12 +16,11 @@ export const RegisterForm = (props) => {
         loading,
         registerError
       } = props;
-
+    console.log(loading);
     const change = (event, name) => {
         handleChange(event);
         setFieldTouched(name, true, false);
     };
-
     return (
         <form className='form' noValidate onSubmit={handleSubmit}>
 		    <Typography 

@@ -16,7 +16,7 @@ export const LoginForm = (props) => {
         loading,
         loginError
       } = props;
-
+    
     const change = (event, name) => {
         handleChange(event);
         setFieldTouched(name, true, false);

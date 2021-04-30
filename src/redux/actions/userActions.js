@@ -87,6 +87,9 @@ export const initAuth = async (dispatch, history) => {
             }
         } 
         else {
+            dispatch({
+                type: LOGIN_USER_ERROR,
+            })
             history.location.pathname === '/register' ?
                 history.push('/register') :
                 history.push('/login')

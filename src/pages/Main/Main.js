@@ -5,7 +5,7 @@ import { PrivateRoute } from '../../components/privateRoute';
 import { Switch } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { TodoList } from '../../components/TodoList/TodoList';
-import { CreateTodo } from '../../components/CreateTodo/CreateTodo';
+import { CreateTodo } from '../../components/CreateTodo/createTodo';
 
 export const Main = ({user, match}) => {
     const dispatch = useDispatch();

@@ -16,7 +16,6 @@ export const RegisterForm = (props) => {
         loading,
         registerError
       } = props;
-    console.log(loading);
     const change = (event, name) => {
         handleChange(event);
         setFieldTouched(name, true, false);
@@ -59,7 +58,7 @@ export const RegisterForm = (props) => {
                 isValid={isValid}/>
 			<Grid container>
 				<Grid item>
-					<Link href='login' variant='body2'>
+					<Link href='/login' variant='body2'>
 						{'Already have account? Sign In'}
 					</Link>
 				</Grid>

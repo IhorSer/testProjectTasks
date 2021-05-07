@@ -53,7 +53,7 @@ export const LoginForm = (props) => {
                 isValid={isValid}/>
             <Grid container>
 				<Grid item>
-					<Link href='register' variant='body2'>
+					<Link href='/register' variant='body2'>
 						{'Don\'t have an account? Sign Up'}
 					</Link>
 				</Grid>

@@ -16,7 +16,8 @@ export const TodoList = ({todos, user, title}) => {
     useEffect(() => {
         const start = (page-1) * itemsPerPage;
         const end = start + itemsPerPage;
-        setItems(todos?.slice(start, end));
+        const tasks = todos?.slice(start, end);
+        setItems(tasks?.length > 0? tasks : todos?.slice(0, itemsPerPage));
     }, [page, todos]);
 
     const onPageClick = (event, page) => {

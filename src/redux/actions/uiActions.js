@@ -3,7 +3,7 @@ import { ADD_CHIP, DELETE_CHIP, CLEAR_CHIPS } from '../actionTypes';
 export const addChip = (chip, dispatch) => {
     return dispatch ({
         type: ADD_CHIP,
-        payload: chip
+        payload: {name: chip}
     })
 };
 

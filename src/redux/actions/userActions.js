@@ -19,7 +19,7 @@ export const logInUser = async (userEmail, userPassword, dispatch, history) => {
         dispatch({
             type: LOGIN_USER_RESPONSE,
             payload: {
-                id: uid,
+                uid,
                 name: displayName,
                 email
             }
@@ -53,7 +53,7 @@ export const registerUser = async (userEmail, userPassword, dispatch, history) =
         dispatch({
             type: REGISTER_USER_RESPONSE,
             payload: {
-                id: uid,
+                uid,
                 name: displayName,
                 email
             }
@@ -79,7 +79,7 @@ export const initAuth = async (dispatch, history) => {
                 dispatch({
                     type: LOGIN_USER_RESPONSE,
                     payload: {
-                        id: uid,
+                        uid,
                         name: displayName,
                         email
                     }

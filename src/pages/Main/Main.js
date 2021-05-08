@@ -10,7 +10,7 @@ import { CreateTodo } from '../../components/CreateTodo/CreateTodo';
 export const Main = ({user, match}) => {
     const dispatch = useDispatch();
     const todos = useSelector(state => state.tasks?.tasks);
-    const userTodos = todos?.filter(todo => todo.creator?.id === user?.id || todo.executor?.id === user?.id);
+    const userTodos = todos?.filter(todo => todo.creator?.uid === user?.uid || todo.executor?.uid === user?.uid);
     useEffect(() => {
         getAll(dispatch);
     }, [dispatch]);   

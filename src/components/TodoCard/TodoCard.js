@@ -19,10 +19,10 @@ import { styles } from './styles';
 export const TodoCard = ({todo, user}) => {
     const classes = styles();
     const dispatch = useDispatch();
-    const isDeletable = todo.creator?.id === user?.id && todo.isTaken === false && !todo.isDone;
-    const isApprovable = todo.creator?.id === user?.id && todo.isTaken === true && !todo.isDone;
-    const isTakable = todo.creator?.id !== user?.id && todo.isTaken === false && !todo.isDone;
-    const isWaitable = todo.creator?.id !== user?.id && todo.executor?.id === user?.id && !todo.isDone;
+    const isDeletable = todo.creator?.uid === user?.uid && todo.isTaken === false && !todo.isDone;
+    const isApprovable = todo.creator?.uid === user?.uid && todo.isTaken === true && !todo.isDone;
+    const isTakable = todo.creator?.uid !== user?.uid && todo.isTaken === false && !todo.isDone;
+    const isWaitable = todo.creator?.uid !== user?.uid && todo.executor?.uid === user?.uid && !todo.isDone;
 
     const additionClass = isTakable ? 
         classes.takableTodo : 
@@ -47,7 +47,6 @@ export const TodoCard = ({todo, user}) => {
         todo.executor = null;
         taskUpdate(todo, dispatch);
     }
-
     return (
         <Card className={classes.card}>
         <div className={classes.circle}>
@@ -81,7 +80,7 @@ export const TodoCard = ({todo, user}) => {
           </Typography>
           <Grid container className={classes.chips}>
           {todo.chips?.map((item, i) => (
-                <Chip label={item} key={i} color='default' variant='outlined' className={classes.chip} />
+                <Chip label={item.name} key={i} color='default' variant='outlined' className={classes.chip} />
             ))}
             </Grid>
         </CardContent>

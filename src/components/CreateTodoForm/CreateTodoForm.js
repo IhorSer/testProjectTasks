@@ -42,7 +42,7 @@ export const CreateTodoForm = (props) => {
     };
 
     const handleSelectChipClick = (event) => {
-        if(selectedChip.length > 0 && !chips?.includes(selectedChip)) {
+        if(selectedChip.length > 0 && chips.findIndex(item => item?.name === selectedChip) === -1) {
             addChip(selectedChip, dispatch);
         }
     }
@@ -108,7 +108,7 @@ export const CreateTodoForm = (props) => {
             </Grid>
             <Grid container className={classes.chipContainer}>
                 {chips?.map((item, i) => (
-                    <Chip label={item} key={i} className={classes.chip}
+                    <Chip label={item.name} key={i} className={classes.chip}
                         onDelete={handleDelete(item)} color='primary' variant='outlined' />
                 ))}
             </Grid>

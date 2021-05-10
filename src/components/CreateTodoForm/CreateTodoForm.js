@@ -13,9 +13,9 @@ import { CustomResetFormButton } from '../../components/CustomResetFormButton/Cu
 import { CustomAuthButton } from '../../components/CustomAuthButton/CustomAuthButton';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import { clearChips } from '../../redux/actions/uiActions';
-
 import { addChip, deleteChip } from '../../redux/actions/uiActions';
 import { styles } from './styles';
+import { uuid } from 'uuidv4'; 
 
 export const CreateTodoForm = (props) => {
     const classes = styles();
@@ -95,8 +95,8 @@ export const CreateTodoForm = (props) => {
                         variant='outlined'
                         defaultValue={'Hey'}
                         onChange={handleChipChange}>
-                            {reqs?.map((req, i) => {
-                                return (<MenuItem value={req} key={i}>{req}</MenuItem>)
+                            {reqs?.map((req) => {
+                                return (<MenuItem value={req} key={uuid()}>{req}</MenuItem>)
                             })}
                     </Select>
                 </Grid>
@@ -107,8 +107,8 @@ export const CreateTodoForm = (props) => {
                 </Grid>
             </Grid>
             <Grid container className={classes.chipContainer}>
-                {chips?.map((item, i) => (
-                    <Chip label={item.name} key={i} className={classes.chip}
+                {chips?.map((item) => (
+                    <Chip label={item.name} key={uuid()} className={classes.chip}
                         onDelete={handleDelete(item)} color='primary' variant='outlined' />
                 ))}
             </Grid>

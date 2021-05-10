@@ -15,6 +15,7 @@ import { taskDelete, taskUpdate } from '../../redux/actions/taskActions';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { styles } from './styles';
+import { uuid } from 'uuidv4'; 
 
 export const TodoCard = ({todo, user}) => {
     const classes = styles();
@@ -79,8 +80,8 @@ export const TodoCard = ({todo, user}) => {
             {todo.description}
           </Typography>
           <Grid container className={classes.chips}>
-          {todo.chips?.map((item, i) => (
-                <Chip label={item.name} key={i} color='default' variant='outlined' className={classes.chip} />
+          {todo.chips?.map((item) => (
+                <Chip label={item.name} key={uuid()} color='default' variant='outlined' className={classes.chip} />
             ))}
             </Grid>
         </CardContent>

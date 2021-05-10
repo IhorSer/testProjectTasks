@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 import Grid from '@material-ui/core/Grid';
 import { styles } from './styles';
+import { uuid } from 'uuidv4'; 
 
 const itemsPerPage = 4;
 
@@ -35,10 +36,10 @@ export const TodoList = ({todos, user, title}) => {
 			</Typography>
             <Grid container className={classes.container}>
                 {
-                    items?.map((item, i) => {
+                    items?.map((item) => {
                         return (
-                            <Box p={2} className={classes.box} key={i}>
-                                <Grid item key={i}
+                            <Box p={2} className={classes.box} key={uuid()}>
+                                <Grid item
                                     className={classes.card} component={TodoCard} todo={item} user={user} />
                             </Box>
                         )
